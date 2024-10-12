@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //eventos de cada um, deixando todos os buracos vazios no começo do jogo
 
 
-function aparecer(randomValue = Math.random()) { .
+function aparecer(randomValue = Math.random()) {
     removerRATO(0);
     const aleatorio = buracos[Math.floor(randomValue * buracos.length)];
     aleatorio.classList.add('rato');
@@ -39,7 +39,7 @@ function aparecer(randomValue = Math.random()) { .
 function lidarComCliqueRATO() {
     if (!estadoDoJogo.jogoAcabado) {
         estadoDoJogo.pontuacao++;
-        displayPontuacao.textContent = Pontuação: ${estadoDoJogo.pontuacao};
+        displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
     }
     this.classList.remove('rato');
 }
