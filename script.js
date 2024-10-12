@@ -1,110 +1,105 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const score = document.getElementById("score-value")
-    const time = document.getElementById("time")
-    const clicked = document.querySelector('.clicked')
-    const holes = document.querySelectorAll(".hole");
-    const startButton = document.getElementById("startButton");
-    const endButton = document.getElementById("endButton");
-    const scoreDisplay = document.getElementById("score");
-    const timerDisplay = document.getElementById("timer");
+    const pontuacao = document.getElementById("score-value");
+    const tempo = document.getElementById("time");
+    const clicado = document.querySelector('.clicked');
+    const buracos = document.querySelectorAll(".hole");
+    const botaoIniciar = document.getElementById("startButton");
+    const botaoFinalizar = document.getElementById("endButton");
+    const displayPontuacao = document.getElementById("Pontuação");
+    const displayTimer = document.getElementById("timer");
 
-    
-    const gameState = {
+    const estadoDoJogo = {
         timer: 60,
-        score: 0,
-        gameOver: true,
-        moleSpeed: 1000, 
-        countdown: null,
-        moleInterval: null,
+        pontuacao: 0,
+        jogoAcabado: true,
+        velocidaderato: 1000,
+        contagemRegressiva: null,
+        intervalorato: null,
     };
 
-   
-
-    function comeout() {
-        holes.forEach(hole => {
-            hole.classList.remove('mole');
-            hole.removeEventListener('click', handleMoleClick);
-        });
-
-        const random = holes[Math.floor(Math.random() * holes.length)];
-
-        random.classList.add('mole');
-        random.addEventListener('click', handleMoleClick);
+    function removerMoles(index) {
+        if (index >= buracos.length) return;
+        buracos[index].classList.remove('rato');
+        buracos[index].removeEventListener('click', lidarComCliqueMole);
+        removerMoles(index + 1);
     }
-
-    function handleMoleClick() {
-        if (!gameState.gameOver) {
-            gameState.score++;
-            scoreDisplay.textContent = `Score: ${gameState.score}`;
+    
+    function aparecer(randomValue = Math.random()) {
+        removerMoles(0);
+        const aleatorio = buracos[Math.floor(randomValue * buracos.length)];
+        aleatorio.classList.add('rato');
+        aleatorio.addEventListener('click', lidarComCliqueMole);
+    }
+    
+    function lidarComCliqueMole() {
+        if (!estadoDoJogo.jogoAcabado) {
+            estadoDoJogo.pontuacao++;
+            displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
         }
-        this.classList.remove('mole');
+        this.classList.remove('rato');
     }
 
-    function startGame() {
-        if (!gameState.gameOver) {
+    function iniciarJogo() {
+        if (!estadoDoJogo.jogoAcabado) {
             return; // Não inicia o jogo se já estiver em progresso
         }
 
-        clicked.style.fill = "rgba(0, 0, 0, 0.371)";
- 
+        clicado.style.fill = "rgba(0, 0, 0, 0.371)";
 
-        gameState.gameOver = false;
-        gameState.score = 0;
-        scoreDisplay.textContent = `Score: ${gameState.score}`;
-        gameState.timer = 60;
-        timerDisplay.textContent = `Time: ${gameState.timer}s`;
+        estadoDoJogo.jogoAcabado = false;
+        estadoDoJogo.pontuacao = 0;
+        displayPontuacao.textContent = `Pontuação ${estadoDoJogo.pontuacao}`;
+        estadoDoJogo.timer = 60;
+        displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`;
 
-        
-        startButton.disabled = true;
-        endButton.disabled = false;
+        botaoIniciar.disabled = true;
+        botaoFinalizar.disabled = false;
 
-        
-        gameState.countdown = setInterval(() => {
-            gameState.timer--;
-            timerDisplay.textContent = `Time: ${gameState.timer}s`;
+        estadoDoJogo.contagemRegressiva = setInterval(() => {
+            estadoDoJogo.timer--;
+            displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`;
 
-
-            if (gameState.timer <= 0) {
-                clearInterval(gameState.countdown);
-                clearInterval(gameState.moleInterval); // Para o intervalo da mole
-                gameState.gameOver = true;
-                alert(`Game Over!\nYour final score: ${gameState.score}`);
-                startButton.disabled = false;
-                endButton.disabled = true;
+            if (estadoDoJogo.timer <= 0) {
+                clearInterval(estadoDoJogo.contagemRegressiva);
+                clearInterval(estadoDoJogo.intervalorato); // Para o intervalo da mole
+                estadoDoJogo.jogoAcabado = true;
+                alert(`Fim de Jogo!\nSua pontuação final: ${estadoDoJogo.pontuacao}`);
+                botaoIniciar.disabled = false;
+                botaoFinalizar.disabled = true;
             }
         }, 1000);
 
-        gameState.moleInterval = setInterval(() => {
-            if (!gameState.gameOver) {
-                comeout();
+        estadoDoJogo.intervalorato = setInterval(() => {
+            if (!estadoDoJogo.jogoAcabado) {
+                aparecer();
                 // Aumenta a velocidade a cada 10 segundos
-                if (gameState.timer % 40 === 0 && gameState.moleSpeed > 200) {
-                    clearInterval(gameState.moleInterval);
-                    gameState.moleSpeed -= 500; // Diminui a velocidade (aumenta a frequência)
-                    gameState.moleInterval = setInterval(() => {
-                        if (!gameState.gameOver) comeout();
-                    }, gameState.moleSpeed);
+                if (estadoDoJogo.timer % 40 === 0 && estadoDoJogo.velocidaderato > 200) {
+                    clearInterval(estadoDoJogo.intervalorato);
+                    estadoDoJogo.velocidaderato -= 500; // Diminui a velocidade (aumenta a frequência)
+                    estadoDoJogo.intervalorato = setInterval(() => {
+                        if (!estadoDoJogo.jogoAcabado) aparecer();
+                    }, estadoDoJogo.velocidaderato);
                 }
             }
-        }, gameState.moleSpeed);
+        }, estadoDoJogo.velocidaderato);
 
-        console.log("Game started");
+        console.log("Jogo iniciado");
     }
 
-    function endGame() {
-        clearInterval(gameState.countdown);
-        clearInterval(gameState.moleInterval);
-        gameState.gameOver = true;
-        alert(`Game Ended!\nYour final score: ${gameState.score}`);
-        gameState.score = 0;
-        gameState.timer = 60;
-        scoreDisplay.textContent = `Score: ${gameState.score}`;
-        timerDisplay.textContent = `Time: ${gameState.timer}s`;
-        startButton.disabled = false;
-        endButton.disabled = true;
-        clicked.style.fill = "black";
+    function finalizarJogo() {
+        clearInterval(estadoDoJogo.contagemRegressiva);
+        clearInterval(estadoDoJogo.intervalorato);
+        estadoDoJogo.jogoAcabado = true;
+        alert(`Jogo Finalizado!\nSua pontuação final: ${estadoDoJogo.pontuacao}`);
+        estadoDoJogo.pontuacao = 0;
+        estadoDoJogo.timer = 60;
+        displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
+        displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`;
+        botaoIniciar.disabled = false;
+        botaoFinalizar.disabled = true;
+        clicado.style.fill = "black";
     }
 
-    startButton.addEventListener("click", startGame);
-    endButton.addEventListener("click", endGame);
+    botaoIniciar.addEventListener("click", iniciarJogo);
+    botaoFinalizar.addEventListener("click", finalizarJogo);
 });

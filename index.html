@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="styles.css">
-<link rel="shortcut icon" href="rat.png" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="rat.png" type="image/x-icon">
     <title>Caça ao Rato</title>
     <link rel="shortcut icon" href="rat.png" type="image/x-icon">
 </head>
 
 <body>
     <div class="top">
-        <h1 class="h1">Caça ao Rato</h1><img src="image-removebg-preview (7).png" alt="">
+        <h1 class="h1">Caça ao Rato</h1>
+        <img src="image-removebg-preview (7).png" alt="">
     </div>
 
-<div class="game-info">
-<div id="score">Score: <span id="score-value">0</span></div>
-<div id="timer">Time: <span id="time">60s</span></div>
-</div>
-<div class="buttons">
-    <button id="startButton"> <svg class="clicked" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/></svg> Start Game</button>
-    <button id="endButton" disabled>End Game</button>
-</div>
-<div class="game-container">
-<div class="hole" id="hole1"></div>
-<div class="hole" id="hole2"></div>
-<div class="hole" id="hole3"></div>
-<div class="hole" id="hole4"></div>
-<div class="hole" id="hole5"></div>
-<div class="hole" id="hole6"></div>
-<div class="hole" id="hole7"></div>
-<div class="hole" id="hole8"></div>
-<div class="hole" id="hole9"></div>
-</div>
+    <div class="game-info">
+        <div id="Pontuação">Pontuação: <span id="score-value">0</span></div>
+        <div id="timer">Tempo: <span id="time">60s</span></div>
+    </div>
+    <div class="buttons">
+        <button id="startButton"> 
+            <svg class="clicked" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+                <path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/>
+            </svg> Iniciar Jogo
+        </button>
+        <button id="endButton" disabled>Encerrar Jogo</button>
+    </div>
+    <div class="game-container">
+        <div class="hole" id="hole1"></div>
+        <div class="hole" id="hole2"></div>
+        <div class="hole" id="hole3"></div>
+        <div class="hole" id="hole4"></div>
+        <div class="hole" id="hole5"></div>
+        <div class="hole" id="hole6"></div>
+        <div class="hole" id="hole7"></div>
+        <div class="hole" id="hole8"></div>
+        <div class="hole" id="hole9"></div>
+    </div>
 </body>
 <script src="script.js"></script>
 </html>
