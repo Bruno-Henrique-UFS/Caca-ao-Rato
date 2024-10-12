@@ -17,11 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
         intervalorato: null,
     };
 
-    function removerRatos(index) {
+    function removerRATO(index) {
     if (index >= buracos.length) return;
     buracos[index].classList.remove('rato');
-    buracos[index].removeEventListener('click', lidarComCliqueRato);
-    removerRatos(index + 1);
+    buracos[index].removeEventListener('click', lidarComCliqueRATO);
+    removerRATO(index + 1);
 }
 //essa função percorre o Array buracos, removendo o rato de cada buraco e tirando o ouvinte de
 //eventos de cada um, deixando todos os buracos vazios no começo do jogo
@@ -46,8 +46,82 @@ function lidarComCliqueRATO() {
 // essa função  verifica se o jogo ainda está ativo, incrementa a pontuação do jogador,
 // atualiza a exibição da pontuação e remove o rato do buraco clicado. 
 
+function iniciarJogo() {
+    // Verifica se o jogo já está em andamento. Se sim, sai da função.
+    if (!estadoDoJogo.jogoAcabado) {
+        return; // Não inicia o jogo se já estiver em progresso
+    }
+
+    // Define a cor do elemento clicado para um tom de preto translúcido
+    clicado.style.fill = "rgba(0, 0, 0, 0.371)";
+
+    // Marca o jogo como iniciado (não está mais acabado) e zera a pontuação
+    estadoDoJogo.jogoAcabado = false;
+    estadoDoJogo.pontuacao = 0;
     
-function FinalizarJogo() {
+    // Atualiza a pontuação na tela
+    displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
+    
+    // Reinicia o temporizador para 60 segundos e atualiza o display
+    estadoDoJogo.timer = 60;
+    displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`;
+
+    // Desabilita o botão de iniciar o jogo e habilita o botão de finalizar
+    botaoIniciar.disabled = true;
+    botaoFinalizar.disabled = false;
+
+    // Inicia a contagem regressiva do temporizador, reduzindo o tempo a cada segundo (1000ms)
+    estadoDoJogo.contagemRegressiva = setInterval(() => {
+        // Diminui o temporizador a cada segundo
+        estadoDoJogo.timer--;
+        displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`; // Atualiza o display do tempo
+
+        // Se o tempo acabar (timer <= 0), termina o jogo
+        if (estadoDoJogo.timer <= 0) {
+            // Para o temporizador e o intervalo de aparecimento de moles
+            clearInterval(estadoDoJogo.contagemRegressiva);
+            clearInterval(estadoDoJogo.intervalorato); // Para o intervalo da função de moles
+            estadoDoJogo.jogoAcabado = true; // Marca o jogo como terminado
+
+            // Exibe um alerta com a pontuação final do jogador
+            alert(`Fim de Jogo!\nSua pontuação final: ${estadoDoJogo.pontuacao}`);
+
+            // Reativa o botão de iniciar e desativa o botão de finalizar
+            botaoIniciar.disabled = false;
+            botaoFinalizar.disabled = true;
+        }
+    }, 1000); // Executa a cada 1000ms (1 segundo)
+
+    // Inicia o intervalo para os moles aparecerem periodicamente com base na velocidade definida (velocidaderato)
+    estadoDoJogo.intervalorato = setInterval(() => {
+        // Se o jogo ainda não terminou, chama a função 'aparecer' para mostrar o rato
+        if (!estadoDoJogo.jogoAcabado) {
+            aparecer();
+
+            // Verifica se o tempo restante é um múltiplo de 40 e a velocidade pode ser reduzida
+            // A cada 40 segundos (ou múltiplo de 40), aumenta a velocidade dos moles (reduz o intervalo)
+            if (estadoDoJogo.timer % 40 === 0 && estadoDoJogo.velocidaderato > 200) {
+                clearInterval(estadoDoJogo.intervalorato); // Para o intervalo atual
+
+                // Reduz a velocidade dos moles (ou seja, eles aparecem mais rápido)
+                estadoDoJogo.velocidaderato -= 500;
+
+                // Cria um novo intervalo com a nova velocidade (menor intervalo)
+                estadoDoJogo.intervalorato = setInterval(() => {
+                    if (!estadoDoJogo.jogoAcabado) {
+                        aparecer();
+                    }
+                }, estadoDoJogo.velocidaderato);
+            }
+        }
+    }, estadoDoJogo.velocidaderato); // Executa com base na velocidade inicial definida (estadoDoJogo.velocidaderato)
+
+    console.log("Jogo iniciado"); // Mensagem de log no console para indicar que o jogo começou
+}
+
+
+    
+function finalizarJogo() {
     clearInterval(estadoDoJogo.contagemRegressiva);
     clearInterval(estadoDoJogo.intervalorato);
     estadoDoJogo.jogoAcabado = true;
