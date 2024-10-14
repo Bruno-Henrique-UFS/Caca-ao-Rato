@@ -129,6 +129,7 @@ function finalizarJogo() {
     clearInterval(estadoDoJogo.intervalorato);
     estadoDoJogo.jogoAcabado = true;
     alert(`Jogo Finalizado!\nSua pontuação final: ${estadoDoJogo.pontuacao}`);
+    estadoDoJogo.velocidaderato = 1000;
     estadoDoJogo.pontuacao = 0;
     estadoDoJogo.timer = 60;
     displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
