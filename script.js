@@ -41,6 +41,8 @@ function lidarComCliqueRATO() {
         estadoDoJogo.pontuacao++;
         displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
     }
+    const audio = document.getElementById('hit-sound');
+    audio.play();
     this.classList.remove('rato');
 }
 // essa função  verifica se o jogo ainda está ativo, incrementa a pontuação do jogador,
