@@ -129,6 +129,7 @@ function finalizarJogo() {
     clearInterval(estadoDoJogo.intervalorato);
     estadoDoJogo.jogoAcabado = true;
     alert(`Jogo Finalizado!\nSua pontuação final: ${estadoDoJogo.pontuacao}`);
+    clicado.style.fill = "black";
     estadoDoJogo.velocidaderato = 1000;
     estadoDoJogo.pontuacao = 0;
     estadoDoJogo.timer = 60;
@@ -136,7 +137,6 @@ function finalizarJogo() {
     displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`;
     botaoIniciar.disabled = false;
     botaoFinalizar.disabled = true;
-    clicado.style.fill = "black";
 }
 //função que finaliza o jogo, trazendo as informações de pontuação finais e habilita para ser jogado novamente
 
