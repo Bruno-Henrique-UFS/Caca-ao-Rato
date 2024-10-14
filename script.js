@@ -42,7 +42,6 @@ function lidarComCliqueRATO() {
         displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
     }
     const audio = document.getElementById('hit-sound');
-    audio.currentTime = 0;
     audio.play();
     this.classList.remove('rato');
 }
