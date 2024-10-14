@@ -66,6 +66,7 @@ function iniciarJogo() {
     
     // Reinicia o temporizador para 60 segundos e atualiza o display
     estadoDoJogo.timer = 60;
+    estadoDoJogo.velocidaderato = 1000;
     displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`;
 
     // Desabilita o botão de iniciar o jogo e habilita o botão de finalizar
