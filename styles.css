@@ -47,7 +47,7 @@ body {
 
 .buttons {
     display: flex;
-    
+    padding-top: 10px;
 }
 
 .game-info {
@@ -81,7 +81,7 @@ body {
 }
 
 .buttons {
-margin-top: -50px;
+margin-top: -130px;
 }
 
 #startButton {
@@ -157,22 +157,1374 @@ margin-top: -50px;
     background-image: url("75b07344-776a-4495-a84f-97b30a2418f3-removebg-preview.png");
 }
 
-@media only screen and (max-width: 600px) {
-    .game-container {
-        width: 80%;
-        gap: 10px;
-        padding: 5%;
-        grid-template-columns: repeat(3, 38%);
+.instru {
+    display: flex;
+    align-self: flex-end;
+    margin-right: 105px;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Audiowide', 'sans-serif';
+    text-align: center;
+    background-color: white; 
+    color: #060660;
+}
+
+.instru:hover {
+    background-color: #060660;
+    color: white;
+}
+
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica na tela inteira */
+    z-index: 1; /* Sobre outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Scroll se necessário */
+    background-color: rgb(0,0,0); /* Preto com opacidade */
+    background-color: rgba(0,0,0,0.4); /* Preto com opacidade */
+    backdrop-filter: blur(5px);
+    
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px; /* Pode ajustar conforme necessário */
+    height: 500px;
+    border-radius: 5px;
+    opacity: 0; 
+    animation: effect 0.5s ease-out forwards;
+}
+
+.modal-content img {
+    height: 130px;
+    display: flex;
+   float: right;
+   margin-top: -15px;
+}
+
+    .modal-content h1,p {
+        font-family: 'Audiowide', 'sans-serif';
     }
 
-    .hole {
+    .modal-content h1 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .modal-content p {
+        color: #504f4f;
+        text-align: justify;
+        margin-bottom: 15px;
+        font-size: 1.065rem;
+    }
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@keyframes effect {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -20px, -5px);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+#side {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: auto;
+
+}
+
+@media screen and (min-width: 1023px) and (max-width:1439px) {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+    background: linear-gradient(to left, #0e627e, #3434af);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20px;
+}
+
+.top img {
+    height: 40px;
+    align-self: center;
+    justify-content: center;
+    margin-right: -30px;
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-bottom: -30px;
+   
+}
+
+.buttons {
+    display: flex;
+    padding-top: 10px;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    margin-right: 50px;
+    align-self: self-end;
+    align-items: center; 
+    color: black;
+    padding-left: 15px;
+    padding-right: 15px;
+    justify-content: center;
+    height: 50px;
+    background-color: white;
+    border-radius: 10px;
+    font-family: 'Audiowide', 'sans-serif';
+    font-size: 1rem;
+    gap: 3px;
+}
+
+.h1 {
+    margin-top: 40px;
+    margin-bottom: -20px;
+    margin-right: 10px;
+    padding: 0;
+    font-family:'Audiowide', 'sans-serif';
+    color: white;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.buttons {
+margin-top: -130px;
+}
+
+#startButton {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Audiowide', 'sans-serif';
+    text-align: center;
+    background-color: yellow;
+    margin-right: 30px;
+}
+
+#startButton:hover {
+    background-color: rgb(72, 72, 21);
+    svg {
+        background-color: rgb(72, 72, 21);
+        fill: white;
+    }
+    color: white;
+}
+
+
+#startButton svg {
+    margin-right: 10px;
+    background-color: yellow;
+    border-radius: 50%;
+    fill: rgb(0, 0, 0);
+}
+
+#endButton {
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Audiowide', 'sans-serif';
+    text-align: center;
+    background-color: rgb(93, 19, 19);
+    color: rgba(255, 242, 242, 0.615);
+}
+
+#endButton:hover {
+    background-color: red;
+    color: white;
+}
+
+.game-container {
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(3, 140px);
+    gap: 10px;
+    border: 2px solid rgb(216, 216, 216);
+    padding: 20px;
+    border-radius: 10px;
+    
+}
+
+.hole {
+    height: 130px;
+    background: rgb(19, 55, 139);
+    border: 5px solid rgb(73, 72, 72);
+    cursor: pointer;
+    border-radius: 100px;
+}
+
+.rato {
+    background-size: 130px;
+    background-image: url("75b07344-776a-4495-a84f-97b30a2418f3-removebg-preview.png");
+}
+
+.instru {
+    display: flex;
+    align-self: flex-end;
+    margin-right: 55px;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Audiowide', 'sans-serif';
+    text-align: center;
+    background-color: white; 
+    color: #060660;
+}
+
+.instru:hover {
+    background-color: #060660;
+    color: white;
+}
+
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica na tela inteira */
+    z-index: 1; /* Sobre outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Scroll se necessário */
+    background-color: rgb(0,0,0); /* Preto com opacidade */
+    background-color: rgba(0,0,0,0.4); /* Preto com opacidade */
+    backdrop-filter: blur(5px);
+    
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    margin-top: 100px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px; /* Pode ajustar conforme necessário */
+    height: 500px;
+    border-radius: 5px;
+    opacity: 0; 
+    animation: effect 0.5s ease-out forwards;
+}
+
+.modal-content img {
+    height: 130px;
+    display: flex;
+   float: right;
+   margin-top: -15px;
+}
+
+    .modal-content h1,p {
+        font-family: 'Audiowide', 'sans-serif';
+    }
+
+    .modal-content h1 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .modal-content p {
+        color: #504f4f;
+        text-align: justify;
+        margin-bottom: 15px;
+        font-size: 1.065rem;
+    }
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+}
+
+@media screen and (min-width: 769px) and (max-width:1022px) {
+    *,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+    background: linear-gradient(to left, #0e627e, #3434af);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -20px;
+}
+
+.top img {
+    height: 40px;
+    align-self: center;
+    justify-content: center;
+    margin-right: -30px;
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-bottom: -30px;
+   
+}
+
+.buttons {
+    display: flex;
+    padding-top: 10px;
+}
+
+.game-info {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    margin-right: 60px;
+    align-self: self-end;
+    align-items: center; 
+    color: black;
+    padding-left: 5px;
+    padding-right: 5px;
+    justify-content: center;
+    height: 50px;
+    background-color: white;
+    border-radius: 10px;
+    font-family: 'Audiowide', 'sans-serif';
+    font-size: .8rem;
+    gap: 3px;
+}
+
+.h1 {
+    margin-top: 40px;
+    margin-bottom: -20px;
+    margin-right: 10px;
+    padding: 0;
+    font-family:'Audiowide', 'sans-serif';
+    color: white;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.buttons {
+margin-top: -130px;
+}
+
+#startButton {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Audiowide', 'sans-serif';
+    text-align: center;
+    background-color: yellow;
+    margin-right: 30px;
+}
+
+#startButton:hover {
+    background-color: rgb(72, 72, 21);
+    svg {
+        background-color: rgb(72, 72, 21);
+        fill: white;
+    }
+    color: white;
+}
+
+
+#startButton svg {
+    margin-right: 10px;
+    background-color: yellow;
+    border-radius: 50%;
+    fill: rgb(0, 0, 0);
+}
+
+#endButton {
+    margin-bottom: 20px;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Audiowide', 'sans-serif';
+    text-align: center;
+    background-color: rgb(93, 19, 19);
+    color: rgba(255, 242, 242, 0.615);
+}
+
+#endButton:hover {
+    background-color: red;
+    color: white;
+}
+
+.game-container {
+    background-color: white;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 10px;
+    border: 2px solid rgb(216, 216, 216);
+    padding: 20px;
+    border-radius: 10px;
+    
+}
+
+.hole {
+    height: 100px;
+    background: rgb(19, 55, 139);
+    border: 5px solid rgb(73, 72, 72);
+    cursor: pointer;
+    border-radius: 100px;
+}
+
+.rato {
+    background-size: 95px;
+    background-image: url("75b07344-776a-4495-a84f-97b30a2418f3-removebg-preview.png");
+}
+
+.instru {
+    display: flex;
+    align-self: flex-end;
+    margin-right: 60px;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Audiowide', 'sans-serif';
+    text-align: center;
+    background-color: white; 
+    color: #060660;
+}
+
+.instru:hover {
+    background-color: #060660;
+    color: white;
+}
+
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica na tela inteira */
+    z-index: 1; /* Sobre outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Scroll se necessário */
+    background-color: rgb(0,0,0); /* Preto com opacidade */
+    background-color: rgba(0,0,0,0.4); /* Preto com opacidade */
+    backdrop-filter: blur(5px);
+    
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    margin-top: 70px;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px; /* Pode ajustar conforme necessário */
+    height: 500px;
+    border-radius: 5px;
+    opacity: 0; 
+    animation: effect 0.5s ease-out forwards;
+}
+
+.modal-content img {
+    height: 130px;
+    display: flex;
+   float: right;
+   margin-top: -5px;
+}
+
+    .modal-content h1,p {
+        font-family: 'Audiowide', 'sans-serif';
+    }
+
+    .modal-content h1 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .modal-content p {
+        color: #504f4f;
+        text-align: justify;
+        margin-bottom: 15px;
+        font-size: 1.065rem;
+    }
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+}
+
+@media screen and (max-width: 769px) {
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    
+    /* Remove default margin */
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    figure,
+    blockquote,
+    dl,
+    dd {
+      margin: 0;
+    }
+    
+    body {
+        background: linear-gradient(to left, #0e627e, #3434af);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -20px;
+    }
+    
+    .top img {
+        height: 40px;
+        align-self: center;
+        justify-content: center;
+        margin-right: -30px;
+        margin-left: 10px;
+        margin-top: 30px;
+        margin-bottom: -30px;
+    }
+    
+    .buttons {
+        display: flex;
+       
+    }
+    
+    .game-info {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        align-items: center; 
+        color: black;
+        padding-left: 5px;
+        padding-right: 5px;
+        justify-content: center;
         height: 50px;
-        width: 50px;
+        background-color: white;
+        border-radius: 10px;
+        font-family: 'Audiowide', 'sans-serif';
+        font-size: .8rem;
+        gap: 3px;
+        margin-top: 40px;
+    }
+    
+    .h1 {
+        margin-top: 40px;
+        margin-bottom: -20px;
+        margin-right: 10px;
+        padding: 0;
+        font-family:'Audiowide', 'sans-serif';
+        color: white;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    .buttons {
+    margin-top: -120px;
+    }
+    
+    #startButton {
+        margin-bottom: 20px;
+        padding: 0;
+        padding-right: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: yellow;
+        margin-right: 10px;
+    }
+    
+    #startButton:hover {
+        background-color: rgb(72, 72, 21);
+        svg {
+            background-color: rgb(72, 72, 21);
+            fill: white;
+        }
+        color: white;
+    }
+    
+    
+    #startButton svg {
+        margin-right: 10px;
+        background-color: yellow;
+        border-radius: 50%;
+        fill: rgb(0, 0, 0);
+    }
+    
+    #endButton {
+        margin-bottom: 20px;
+        padding: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: rgb(93, 19, 19);
+        color: rgba(255, 242, 242, 0.615);
+    }
+    
+    #endButton:hover {
+        background-color: red;
+        color: white;
+    }
+    
+    .game-container {
+        background-color: white;
+        display: grid;
+        grid-template-columns: repeat(3, 60px);
+        gap: 10px;
+        border: 2px solid rgb(216, 216, 216);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 0px;
+    }
+    
+    .hole {
+        height: 60px;
+        background: rgb(19, 55, 139);
+        border: 5px solid rgb(73, 72, 72);
+        cursor: pointer;
         border-radius: 100px;
     }
-
+    
     .rato {
         background-size: 50px;
-        background-image: url("75b07344-776a-4495-a84f-97b30a2418f3-removebg-preview.png")
+        background-image: url("75b07344-776a-4495-a84f-97b30a2418f3-removebg-preview.png");
+    }
+    
+    .instru {
+        padding: 10px;
+        font-size: 13px;
+        cursor: pointer;
+        align-items: center;
+        padding: 5px;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: white; 
+        color: #060660;
+    }
+    
+    .instru:hover {
+        background-color: #060660;
+        color: white;
+    }
+    
+    .modal {
+        display: none; /* Escondido por padrão */
+        position: fixed; /* Fica na tela inteira */
+        z-index: 1; /* Sobre outros elementos */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; /* Scroll se necessário */
+        background-color: rgb(0,0,0); /* Preto com opacidade */
+        background-color: rgba(0,0,0,0.4); /* Preto com opacidade */
+        backdrop-filter: blur(5px);
+        
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        margin-top: 70px;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px; /* Pode ajustar conforme necessário */
+        height: 500px;
+        border-radius: 5px;
+        opacity: 0; 
+        animation: effect 0.5s ease-out forwards;
+    }
+    
+    .modal-content img {
+        height: 130px;
+        display: flex;
+       float: right;
+       margin-top: -5px;
+    }
+    
+        .modal-content h1,p {
+            font-family: 'Audiowide', 'sans-serif';
+        }
+    
+        .modal-content h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+    
+        .modal-content p {
+            color: #504f4f;
+            text-align: justify;
+            margin-bottom: 15px;
+            font-size: .9rem;
+        }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    #side {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-left: auto;
+    
+    }
+}
+
+@media screen and (min-width: 424px ) and (max-width: 700px) {
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%; /* Garantindo que o corpo ocupe toda a tela */
+        overflow-x: hidden; /* Evita overflow horizontal */
+        background: linear-gradient(to right,  #3434af, #0e627e);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        width: 100vw;
+    }
+    
+    /* Restante do CSS */
+    .top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -200px;
+    }
+    
+    .top img {
+        height: 30px;
+        align-self: center;
+        justify-content: center;
+        margin-right: -30px;
+        margin-left: 10px;
+        margin-top: 30px;
+        margin-bottom: -30px;
+    }
+    
+    .buttons {
+        display: flex;
+    }
+    
+    .game-info {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        align-items: center;
+        color: black;
+        padding-left: 5px;
+        padding-right: 5px;
+        justify-content: center;
+        height: 50px;
+        background-color: white;
+        border-radius: 10px;
+        font-family: 'Audiowide', 'sans-serif';
+        font-size: .75rem;
+        gap: 3px;
+        margin-top: 40px;
+        margin-right: 0px;
+        margin-left: 65px;
+        width: 120px;
+    }
+    
+    .h1 {
+        margin-top: 40px;
+        margin-bottom: -20px;
+        margin-right: 10px;
+        padding: 0;
+        font-family: 'Audiowide', 'sans-serif';
+        color: white;
+        font-size: 1.7rem;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    .buttons {
+        margin-top: 0px;
+    }
+    
+    #startButton {
+        margin-bottom: 20px;
+        padding: 0;
+        padding-right: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: yellow;
+        margin-right: 10px;
+    }
+    
+    #startButton:hover {
+        background-color: rgb(72, 72, 21);
+        svg {
+            background-color: rgb(72, 72, 21);
+            fill: white;
+        }
+        color: white;
+    }
+    
+    #startButton svg {
+        margin-right: 10px;
+        background-color: yellow;
+        border-radius: 50%;
+        fill: rgb(0, 0, 0);
+    }
+    
+    #endButton {
+        margin-bottom: 20px;
+        padding: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: rgb(93, 19, 19);
+        color: rgba(255, 242, 242, 0.615);
+    }
+    
+    #endButton:hover {
+        background-color: red;
+        color: white;
+    }
+    
+    .game-container {
+        background-color: white;
+        display: grid;
+        grid-template-columns: repeat(3, 60px);
+        gap: 10px;
+        border: 2px solid rgb(216, 216, 216);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 0px;
+    }
+    
+    .hole {
+        height: 60px;
+        background: rgb(19, 55, 139);
+        border: 5px solid rgb(73, 72, 72);
+        cursor: pointer;
+        border-radius: 100px;
+    }
+    
+    .rato {
+        background-size: 50px;
+        background-image: url("75b07344-776a-4495-a84f-97b30a2418f3-removebg-preview.png");
+    }
+    
+    .instru {
+        padding: 10px;
+        font-size: 13px;
+        cursor: pointer;
+        align-items: center;
+        padding: 5px;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: white;
+        color: #060660;
+        margin-left: 20px;
+        font-size: .75rem;
+        margin-bottom: 30px;
+        width: 100px;
+    }
+    
+    .instru:hover {
+        background-color: #060660;
+        color: white;
+    }
+    
+    .modal {
+        display: none; /* Escondido por padrão */
+        position: fixed; /* Fica na tela inteira */
+        z-index: 1; /* Sobre outros elementos */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; /* Scroll se necessário */
+        background-color: rgb(0,0,0); /* Preto com opacidade */
+        background-color: rgba(0,0,0,0.4); /* Preto com opacidade */
+        backdrop-filter: blur(5px);
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        margin-top: 70px;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px; /* Pode ajustar conforme necessário */
+        height: 500px;
+        border-radius: 5px;
+        opacity: 0;
+        animation: effect 0.5s ease-out forwards;
+    }
+    
+    .modal-content img {
+        height: 130px;
+        display: flex;
+        float: right;
+        margin-top: -5px;
+    }
+    
+    .modal-content h1, p {
+        font-family: 'Audiowide', 'sans-serif';
+    }
+    
+    .modal-content h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 1.8rem;
+    }
+    
+    .modal-content p {
+        color: #504f4f;
+        text-align: justify;
+        margin-bottom: 15px;
+        font-size: .9rem;
+    }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    #side {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content:center;
+        margin-left: 40px;
+    }
+}
+@media screen and (max-width: 424px) {
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%; /* Garantindo que o corpo ocupe toda a tela */
+        overflow-x: hidden; /* Evita overflow horizontal */
+        background: linear-gradient(to right,  #3434af, #0e627e);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        width: 100vw;
+    }
+    
+    /* Restante do CSS */
+    .top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -200px;
+    }
+    
+    .top img {
+        height: 30px;
+        align-self: center;
+        justify-content: center;
+        margin-right: -30px;
+        margin-left: 10px;
+        margin-top: 30px;
+        margin-bottom: -30px;
+    }
+    
+    .buttons {
+        display: flex;
+    }
+    
+    .game-info {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        align-items: center;
+        color: black;
+        padding-left: 5px;
+        padding-right: 5px;
+        justify-content: center;
+        height: 50px;
+        background-color: white;
+        border-radius: 10px;
+        font-family: 'Audiowide', 'sans-serif';
+        font-size: .75rem;
+        gap: 3px;
+        margin-top: 40px;
+        margin-right: 0px;
+        margin-left: 65px;
+        width: 120px;
+    }
+    
+    .h1 {
+        margin-top: 40px;
+        margin-bottom: -20px;
+        margin-right: 10px;
+        padding: 0;
+        font-family: 'Audiowide', 'sans-serif';
+        color: white;
+        font-size: 1.7rem;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    
+    .buttons {
+        margin-top: 0px;
+    }
+    
+    #startButton {
+        margin-bottom: 20px;
+        padding: 0;
+        padding-right: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: yellow;
+        margin-right: 10px;
+    }
+    
+    #startButton:hover {
+        background-color: rgb(72, 72, 21);
+        svg {
+            background-color: rgb(72, 72, 21);
+            fill: white;
+        }
+        color: white;
+    }
+    
+    #startButton svg {
+        margin-right: 10px;
+        background-color: yellow;
+        border-radius: 50%;
+        fill: rgb(0, 0, 0);
+    }
+    
+    #endButton {
+        margin-bottom: 20px;
+        padding: 5px;
+        font-size: 13px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: rgb(93, 19, 19);
+        color: rgba(255, 242, 242, 0.615);
+    }
+    
+    #endButton:hover {
+        background-color: red;
+        color: white;
+    }
+    
+    .game-container {
+        background-color: white;
+        display: grid;
+        grid-template-columns: repeat(3, 60px);
+        gap: 10px;
+        border: 2px solid rgb(216, 216, 216);
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 0px;
+    }
+    
+    .hole {
+        height: 60px;
+        background: rgb(19, 55, 139);
+        border: 5px solid rgb(73, 72, 72);
+        cursor: pointer;
+        border-radius: 100px;
+    }
+    
+    .rato {
+        background-size: 50px;
+        background-image: url("75b07344-776a-4495-a84f-97b30a2418f3-removebg-preview.png");
+    }
+    
+    .instru {
+        padding: 10px;
+        font-size: 13px;
+        cursor: pointer;
+        align-items: center;
+        padding: 5px;
+        justify-content: center;
+        font-family: 'Audiowide', 'sans-serif';
+        text-align: center;
+        background-color: white;
+        color: #060660;
+        margin-left: 20px;
+        font-size: .75rem;
+        margin-bottom: 30px;
+        width: 100px;
+    }
+    
+    .instru:hover {
+        background-color: #060660;
+        color: white;
+    }
+    
+    .modal {
+        display: none; /* Escondido por padrão */
+        position: fixed; /* Fica na tela inteira */
+        z-index: 1; /* Sobre outros elementos */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; /* Scroll se necessário */
+        background-color: rgb(0,0,0); /* Preto com opacidade */
+        background-color: rgba(0,0,0,0.4); /* Preto com opacidade */
+        backdrop-filter: blur(5px);
+    }
+    
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        margin-top: 70px;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px; /* Pode ajustar conforme necessário */
+        height: 500px;
+        border-radius: 5px;
+        opacity: 0;
+        animation: effect 0.5s ease-out forwards;
+    }
+    
+    .modal-content img {
+        height: 130px;
+        display: flex;
+        float: right;
+        margin-top: -5px;
+    }
+    
+    .modal-content h1, p {
+        font-family: 'Audiowide', 'sans-serif';
+    }
+    
+    .modal-content h1 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-size: 1.8rem;
+    }
+    
+    .modal-content p {
+        color: #504f4f;
+        text-align: justify;
+        margin-bottom: 15px;
+        font-size: .9rem;
+    }
+    
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    #side {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content:center
+    }
+}
+
+@media screen and (max-width: 321px) {
+    .game-info {
+        margin-left: 40px;
+    }
+
+    .top img {
+        height: 30px;
+        align-self: center;
+        justify-content: center;
+        margin-right: -30px;
+        margin-left: 10px;
+        margin-top: 30px;
+        margin-bottom: -30px;
+        display: none;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        margin-top: 70px;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 280px; /* Pode ajustar conforme necessário */
+        height: 500px;
+        border-radius: 5px;
+        opacity: 0; 
+        animation: effect 0.5s ease-out forwards;
+    }
+
+    .modal-content p {
+        font-size: .85rem;
+    }
+
+    .modal-content h1 {
+        font-size: 1.6rem;
     }
 }

@@ -6,23 +6,31 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="rat.png" type="image/x-icon">
     <title>Caça ao Rato</title>
-    <link rel="shortcut icon" href="rat.png" type="image/x-icon">
 </head>
-
 <body>
     <div class="top">
         <h1 class="h1">Caça ao Rato</h1>
         <img src="image-removebg-preview (7).png" alt="">
     </div>
-
     <audio id="hit-sound" src="collect-points-190037.mp3" preload="auto"></audio>
+    <div id="side">
+        <div class="game-info">
+            <div id="Pontuação">Pontuação: <span id="score-value">0</span></div>
+            <div id="timer">Tempo: <span id="time">60s</span></div>
+        </div>
+        <button class="instru">Como Jogar</button>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>Como Jogar?!</h1> <img src="75b07344-776a-4495-a84f-97b30a2418f3-removebg-preview.png" alt="">
+            <p>Seu objetivo é acertar o rato <strong>(clicando nele)</strong> antes que ele volte para dentro dos buracos.</p>
 
-    <div class="game-info">
-        <div id="Pontuação">Pontuação: <span id="score-value">0</span></div>
-        <div id="timer">Tempo: <span id="time">60s</span></div>
+                <p>A cada vez que você acerta o rato, você ganha pontos. Quanto mais rápido e preciso você for, mais pontos você faz. Mas fique atento, porque o rato aparece e desaparece rapidamente, então você precisa ser ágil e ter bons reflexos para acertá-lo! O jogo vai ficando mais difícil à medida que a velocidade dos ratos aumenta, tente acumular a maior quantidade de pontos em <strong>60s</strong>, pois o jogo acaba com o encerramento do tempo.</p>
+        </div>
     </div>
     <div class="buttons">
-        <button id="startButton"> 
+        <button id="startButton">
             <svg class="clicked" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
                 <path d="M320-200v-560l440 280-440 280Zm80-280Zm0 134 210-134-210-134v268Z"/>
             </svg> Iniciar Jogo
@@ -40,6 +48,6 @@
         <div class="hole" id="hole8"></div>
         <div class="hole" id="hole9"></div>
     </div>
+    <script src="script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
