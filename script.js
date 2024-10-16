@@ -48,7 +48,7 @@ function lidarComCliqueRATO() {
         som();
         if (this.classList.contains('rato')) {
             this.classList.remove('rato');
-            estadoDoJogo.pontuação++;
+            estadoDoJogo.pontuacao++;
             displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
             this.removeEventListener('click', lidarComCliqueRATO)
         }
