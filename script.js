@@ -36,15 +36,23 @@ function aparecer(randomValue = Math.random()) {
 //Essa função,é responsável por fazer com que um rato apareça em um dos buracos
 //a função irá usar Math.random() para gerar um número aleatório entre 0 e 1.
 // Esse número é utilizado para determinar em qual buraco o rato irá aparecer.
-function lidarComCliqueRATO() {
-    if (!estadoDoJogo.jogoAcabado) {
-        estadoDoJogo.pontuacao++;
-        displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
-    }
+
+function som() {
     const audio = document.getElementById('hit-sound');
     audio.currentTime = 0; 
     audio.play();
-    this.classList.remove('rato');
+}
+    
+function lidarComCliqueRATO() {
+    if (!estadoDoJogo.jogoAcabado) {
+        som();
+        if (this.classList.contains('rato')) {
+            this.classList.remove('rato');
+            estadoDoJogo.pontuação++;
+            displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
+            this.removeEventListener('click', lidarComCliqueRATO)
+        }
+    }
 }
 // essa função  verifica se o jogo ainda está ativo, incrementa a pontuação do jogador,
 // atualiza a exibição da pontuação e remove o rato do buraco clicado. 
