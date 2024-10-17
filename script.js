@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         intervalorato: null,
     };
 
-    function removerRATO(index) {
+    const removerRATO=(index) =>{
     if (index >= buracos.length) return;
     buracos[index].classList.remove('rato');
     buracos[index].removeEventListener('click', lidarComCliqueRATO);
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 //eventos de cada um, deixando todos os buracos vazios no começo do jogo
 
 
-function aparecer(randomValue = Math.random()) {
+const aparecer=(randomValue = Math.random())=> {
     removerRATO(0);
     const aleatorio = buracos[Math.floor(randomValue * buracos.length)];
     aleatorio.classList.add('rato');
@@ -54,27 +54,28 @@ function aparecer(randomValue = Math.random()) {
 //a função irá usar Math.random() para gerar um número aleatório entre 0 e 1.
 // Esse número é utilizado para determinar em qual buraco o rato irá aparecer.
 
-function som() {
+const som=()=> {
     const audio = document.getElementById('hit-sound');
     audio.currentTime = 0; 
     audio.play();
 }
-    
-function lidarComCliqueRATO() {
+    //essa função da play no som  ao clicar no rato
+const lidarComCliqueRATO = (e) => {
     if (!estadoDoJogo.jogoAcabado) {
         som();
-        if (this.classList.contains('rato')) {
-            this.classList.remove('rato');
+        if (e.target.classList.contains('rato')) {
+            e.target.classList.remove('rato');
             estadoDoJogo.pontuacao++;
             displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
-            this.removeEventListener('click', lidarComCliqueRATO)
+            e.target.removeEventListener('click', lidarComCliqueRATO);
         }
     }
-}
+};
+
 // essa função  verifica se o jogo ainda está ativo, incrementa a pontuação do jogador,
 // atualiza a exibição da pontuação e remove o rato do buraco clicado. 
 
-function iniciarJogo() {
+const iniciarJogo=() =>{
     // Verifica se o jogo já está em andamento. Se sim, sai da função.
     if (!estadoDoJogo.jogoAcabado) {
         return; // Não inicia o jogo se já estiver em progresso
@@ -150,7 +151,7 @@ function iniciarJogo() {
 
 
     
-function finalizarJogo() {
+const finalizarJogo=() =>{
     clearInterval(estadoDoJogo.contagemRegressiva);
     clearInterval(estadoDoJogo.intervalorato);
     estadoDoJogo.jogoAcabado = true;
