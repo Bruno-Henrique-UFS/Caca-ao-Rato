@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () { 
+document.addEventListener("DOMContentLoaded", function () {
     const pontuacao = document.getElementById("score-value");
     const tempo = document.getElementById("time");
     const clicado = document.querySelector('.clicked');
@@ -10,163 +10,138 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.getElementById("myModal");
     const btn = document.querySelector(".instru");
     const span = document.getElementsByClassName("close")[0];
-    
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-    
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-    
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+    const audio = document.getElementById('hit-sound');
 
-    const estadoDoJogo = {
-        timer: 60,
-        pontuacao: 0,
-        jogoAcabado: true,
-        velocidaderato: 1000,
-        contagemRegressiva: null,
-        intervalorato: null,
+    const criarGerenciadorDeEstado = () => {
+        const estadoInicial = {
+            timer: 60,
+            pontuacao: 0,
+            jogoAcabado: true,
+            velocidaderato: 1000,
+            contagemRegressiva: null,
+            intervalorato: null,
+        };
+
+        const getEstado = () => ({ ...estadoInicial });
+
+        const atualizarEstado = (alteracoes) => {
+            const estadoAtualizado = { ...estadoInicial, ...alteracoes };
+            estadoInicial.timer = estadoAtualizado.timer;
+            estadoInicial.pontuacao = estadoAtualizado.pontuacao;
+            estadoInicial.jogoAcabado = estadoAtualizado.jogoAcabado;
+            estadoInicial.velocidaderato = estadoAtualizado.velocidaderato;
+            estadoInicial.contagemRegressiva = estadoAtualizado.contagemRegressiva;
+            estadoInicial.intervalorato = estadoAtualizado.intervalorato;
+            return estadoAtualizado;
+        };
+
+        return { atualizarEstado, getEstado };
     };
 
-    const removerRATO=(index) =>{
-    if (index >= buracos.length) return;
-    buracos[index].classList.remove('rato');
-    buracos[index].removeEventListener('click', lidarComCliqueRATO);
-    removerRATO(index + 1);
-}
-//essa função percorre o Array buracos, removendo o rato de cada buraco e tirando o ouvinte de
-//eventos de cada um, deixando todos os buracos vazios no começo do jogo
+    const { atualizarEstado, getEstado } = criarGerenciadorDeEstado();
 
+    const removerRATO = (buracos, index = 0) => {
+        if (index >= buracos.length) return;
+        buracos[index].classList.remove('rato');
+        buracos[index].removeEventListener('click', lidarComCliqueRATO);
+        removerRATO(buracos, index + 1);
+    };
 
-const aparecer=(randomValue = Math.random())=> {
-    removerRATO(0);
-    const aleatorio = buracos[Math.floor(randomValue * buracos.length)];
-    aleatorio.classList.add('rato');
-    aleatorio.addEventListener('click', lidarComCliqueRATO);
-}
-//Essa função,é responsável por fazer com que um rato apareça em um dos buracos
-//a função irá usar Math.random() para gerar um número aleatório entre 0 e 1.
-// Esse número é utilizado para determinar em qual buraco o rato irá aparecer.
+    const aparecer = (buracos, randomValue = Math.random()) => {
+        removerRATO(buracos);
+        const aleatorio = buracos[Math.floor(randomValue * buracos.length)];
+        aleatorio.classList.add('rato');
+        aleatorio.addEventListener('click', lidarComCliqueRATO, { once: true });
+    };
 
-const som=()=> {
-    const audio = document.getElementById('hit-sound');
-    audio.currentTime = 0; 
-    audio.play();
-}
-    //essa função da play no som  ao clicar no rato
-const lidarComCliqueRATO = (e) => {
-    if (!estadoDoJogo.jogoAcabado) {
-        som();
-        if (e.target.classList.contains('rato')) {
+    const som = (audio) => {
+        audio.currentTime = 0;
+        audio.play();
+    };
+
+    const lidarComCliqueRATO = (e) => {
+        const estadoAtual = getEstado();
+        if (!estadoAtual.jogoAcabado && e.target.classList.contains('rato')) {
+            som(audio);
             e.target.classList.remove('rato');
-            estadoDoJogo.pontuacao++;
-            displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
-            e.target.removeEventListener('click', lidarComCliqueRATO);
+            const novoEstado = atualizarEstado({ pontuacao: estadoAtual.pontuacao + 1 });
+            displayPontuacao.textContent = `Pontuação: ${novoEstado.pontuacao}`;
         }
-    }
-};
+    };
 
-// essa função  verifica se o jogo ainda está ativo, incrementa a pontuação do jogador,
-// atualiza a exibição da pontuação e remove o rato do buraco clicado. 
-
-const iniciarJogo=() =>{
-    // Verifica se o jogo já está em andamento. Se sim, sai da função.
-    if (!estadoDoJogo.jogoAcabado) {
-        return; // Não inicia o jogo se já estiver em progresso
-    }
-
-    // Define a cor do elemento clicado para um tom de preto translúcido
-    clicado.style.fill = "rgba(0, 0, 0, 0.371)";
-
-    // Marca o jogo como iniciado (não está mais acabado) e zera a pontuação
-    estadoDoJogo.jogoAcabado = false;
-    estadoDoJogo.pontuacao = 0;
-    
-    // Atualiza a pontuação na tela
-    displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
-    
-    // Reinicia o temporizador para 60 segundos e atualiza o display
-    estadoDoJogo.timer = 60;
-    estadoDoJogo.velocidaderato = 1000;
-    displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`;
-
-    // Desabilita o botão de iniciar o jogo e habilita o botão de finalizar
-    botaoIniciar.disabled = true;
-    botaoFinalizar.disabled = false;
-
-    // Inicia a contagem regressiva do temporizador, reduzindo o tempo a cada segundo (1000ms)
-    estadoDoJogo.contagemRegressiva = setInterval(() => {
-        // Diminui o temporizador a cada segundo
-        estadoDoJogo.timer--;
-        displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`; // Atualiza o display do tempo
-
-        // Se o tempo acabar (timer <= 0), termina o jogo
-        if (estadoDoJogo.timer <= 0) {
-            // Para o temporizador e o intervalo de aparecimento de moles
-            clearInterval(estadoDoJogo.contagemRegressiva);
-            clearInterval(estadoDoJogo.intervalorato); // Para o intervalo da função de moles
-            estadoDoJogo.jogoAcabado = true; // Marca o jogo como terminado
-
-            // Exibe um alerta com a pontuação final do jogador
-            alert(`Fim de Jogo!\nSua pontuação final: ${estadoDoJogo.pontuacao}`);
-
-            // Reativa o botão de iniciar e desativa o botão de finalizar
-            botaoIniciar.disabled = false;
-            botaoFinalizar.disabled = true;
-        }
-    }, 1000); // Executa a cada 1000ms (1 segundo)
-
-    // Inicia o intervalo para os moles aparecerem periodicamente com base na velocidade definida (velocidaderato)
-    estadoDoJogo.intervalorato = setInterval(() => {
-        // Se o jogo ainda não terminou, chama a função 'aparecer' para mostrar o rato
-        if (!estadoDoJogo.jogoAcabado) {
-            aparecer();
-
-            // Verifica se o tempo restante é um múltiplo de 40 e a velocidade pode ser reduzida
-            // A cada 40 segundos (ou múltiplo de 40), aumenta a velocidade dos moles (reduz o intervalo)
-            if (estadoDoJogo.timer % 40 === 0 && estadoDoJogo.velocidaderato > 200) {
-                clearInterval(estadoDoJogo.intervalorato); // Para o intervalo atual
-
-                // Reduz a velocidade dos moles (ou seja, eles aparecem mais rápido)
-                estadoDoJogo.velocidaderato -= 500;
-
-                // Cria um novo intervalo com a nova velocidade (menor intervalo)
-                estadoDoJogo.intervalorato = setInterval(() => {
-                    if (!estadoDoJogo.jogoAcabado) {
-                        aparecer();
-                    }
-                }, estadoDoJogo.velocidaderato);
+    const iniciarContagemRegressiva = () => {
+        const contagem = setInterval(() => {
+            const estadoAtual = getEstado();
+            const novoEstado = atualizarEstado({ timer: estadoAtual.timer - 1 });
+            displayTimer.textContent = `Tempo: ${novoEstado.timer}s`;
+            if (novoEstado.timer <= 0) {
+                clearInterval(novoEstado.contagemRegressiva);
+                clearInterval(novoEstado.intervalorato);
+                finalizarJogo(novoEstado);
             }
-        }
-    }, estadoDoJogo.velocidaderato); // Executa com base na velocidade inicial definida (estadoDoJogo.velocidaderato)
+        }, 1000);
+        atualizarEstado({ contagemRegressiva: contagem });
+    };
 
-    console.log("Jogo iniciado"); // Mensagem de log no console para indicar que o jogo começou
-}
+    const iniciarIntervaloRato = () => {
+        const intervalo = setInterval(() => {
+            const estadoAtual = getEstado();
+            if (!estadoAtual.jogoAcabado) {
+                aparecer(buracos);
+                if (estadoAtual.timer % 10 === 0 && estadoAtual.velocidaderato > 300) {
+                    clearInterval(estadoAtual.intervalorato);
+                    const novoEstado = atualizarEstado({ velocidaderato: estadoAtual.velocidaderato - 100 });
+                    iniciarIntervaloRato();
+                }
+            }
+        }, getEstado().velocidaderato);
+        atualizarEstado({ intervalorato: intervalo });
+    };
 
+    const iniciarJogo = () => {
+        const estadoAtual = getEstado();
+        if (!estadoAtual.jogoAcabado) return;
+        clicado.style.fill = "rgba(0, 0, 0, 0.371)";
+        const novoEstado = atualizarEstado({
+            jogoAcabado: false,
+            pontuacao: 0,
+            timer: 60,
+            velocidaderato: 1000
+        });
+        iniciarContagemRegressiva();
+        iniciarIntervaloRato();
+        displayPontuacao.textContent = `Pontuação: ${novoEstado.pontuacao}`;
+        displayTimer.textContent = `Tempo: ${novoEstado.timer}s`;
+        botaoIniciar.disabled = true;
+        botaoFinalizar.disabled = false;
+    };
 
-    
-const finalizarJogo=() =>{
-    clearInterval(estadoDoJogo.contagemRegressiva);
-    clearInterval(estadoDoJogo.intervalorato);
-    estadoDoJogo.jogoAcabado = true;
-    alert(`Jogo Finalizado!\nSua pontuação final: ${estadoDoJogo.pontuacao}`);
-    clicado.style.fill = "black";
-    estadoDoJogo.velocidaderato = 1000;
-    estadoDoJogo.pontuacao = 0;
-    estadoDoJogo.timer = 60;
-    displayPontuacao.textContent = `Pontuação: ${estadoDoJogo.pontuacao}`;
-    displayTimer.textContent = `Tempo: ${estadoDoJogo.timer}s`;
-    botaoIniciar.disabled = false;
-    botaoFinalizar.disabled = true;
-}
-//função que finaliza o jogo, trazendo as informações de pontuação finais e habilita para ser jogado novamente
+    const finalizarJogo = (estadoAtual) => {
+        clearInterval(estadoAtual.contagemRegressiva);
+        clearInterval(estadoAtual.intervalorato);
+        alert(`Fim de Jogo!\nSua pontuação final: ${estadoAtual.pontuacao}`);
+        const novoEstado = atualizarEstado({
+            jogoAcabado: true,
+            pontuacao: 0,
+            timer: 60,
+            velocidaderato: 1000
+        });
+        displayPontuacao.textContent = `Pontuação: ${novoEstado.pontuacao}`;
+        displayTimer.textContent = `Tempo: ${novoEstado.timer}s`;
+        botaoIniciar.disabled = false;
+        botaoFinalizar.disabled = true;
+        clicado.style.fill = "black";
+    };
 
+    const inicializarModal = () => {
+        btn.onclick = () => modal.style.display = "block";
+        span.onclick = () => modal.style.display = "none";
+        window.onclick = (event) => {
+            if (event.target === modal) modal.style.display = "none";
+        };
+    };
+
+    inicializarModal();
     botaoIniciar.addEventListener("click", iniciarJogo);
-    botaoFinalizar.addEventListener("click", finalizarJogo);
+    botaoFinalizar.addEventListener("click", () => finalizarJogo(getEstado()));
 });
