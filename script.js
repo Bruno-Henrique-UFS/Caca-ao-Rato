@@ -45,14 +45,22 @@ document.addEventListener("DOMContentLoaded", function () {
         buracos[index].classList.remove('rato');
         buracos[index].removeEventListener('click', lidarComCliqueRATO);
         removerRATO(buracos, index + 1);
-    };
+    }; 
 
-    const aparecer = (buracos, randomValue = Math.random()) => {
-        removerRATO(buracos);
-        const aleatorio = buracos[Math.floor(randomValue * buracos.length)];
-        aleatorio.classList.add('rato');
-        aleatorio.addEventListener('click', lidarComCliqueRATO, { once: true });
-    };
+    const selecionarBuraco = (buracos, randomvalue = Math.random()) => {
+        return buracos[Math.floor(randomvalue * buracos.length)]
+    }
+
+    const colocandoRato = (buraco) => {
+        buraco.classList.add('rato');
+        buraco.addEventListener('click', lidarComCliqueRATO)
+    }
+
+    const aparecerRato = (buracos, randomvalue = Math.random()) => {
+        removerRATO(buracos)
+        const buracoaleatorio = selecionarBuraco(buracos, randomvalue);
+        colocandoRato(buracoaleatorio)
+    }
 
     const som = (audio) => {
         audio.currentTime = 0;
@@ -87,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const intervalo = setInterval(() => {
             const estadoAtual = getEstado();
             if (!estadoAtual.jogoAcabado) {
-                aparecer(buracos);
+                aparecerRato(buracos);
                 if (estadoAtual.timer % 10 === 0 && estadoAtual.velocidaderato > 300) {
                     clearInterval(estadoAtual.intervalorato);
                     const novoEstado = atualizarEstado({ velocidaderato: estadoAtual.velocidaderato - 100 });
@@ -131,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
         botaoIniciar.disabled = false;
         botaoFinalizar.disabled = true;
         clicado.style.fill = "black";
+        removerRATO(buracos)
     };
 
     const inicializarModal = () => {
