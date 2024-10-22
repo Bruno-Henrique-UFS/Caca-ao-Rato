@@ -1,3 +1,10 @@
+/*NOTA: Tentamos ao máximo colocar todo o código de acordo com o paradigma funcional, porém devido a grande manipulação do DOM
+do codigo e alterações que devem ocorrer durando o jogo alguns aspectos não puderam ser totalmente adaptados.
+
+Código Base:
+         - https://www.geeksforgeeks.org/whack-a-mole-game-using-html-css-and-javascript/
+*/
+
 document.addEventListener("DOMContentLoaded", function () {
     // Captura elementos do DOM como o display de pontuação, tempo, buracos, botões, modal e som.
     const pontuacao = document.getElementById("score-value");
@@ -46,6 +53,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Inicializa o gerenciador de estado.
     const { atualizarEstado, getEstado } = criarGerenciadorDeEstado();
 
+    /*essa maneira de manipular o estado do jogo foi a que encontramos e acreditamos chegar mais perto do paradigma funcional, uma vez
+    que sempre cria um novo registro como copia do anterior com as alterações necessarias */
+
     // Remove o rato de um buraco.
     const removerRATO = (buracos, index = 0) => {
         if (index >= buracos.length) return;
@@ -88,6 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
             displayPontuacao.textContent = `Pontuação: ${novoEstado.pontuacao}`; // Atualiza a pontuação no display.
         }
     };
+    /*foi necessário o uso de e.target.classList.contains('rato') para verificar se o rato realmente esta no buraco,
+    e so se estiver executar a função*/
 
     // Inicia a contagem regressiva do jogo.
     const iniciarContagemRegressiva = () => {
@@ -103,6 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 1000);
         atualizarEstado({ contagemRegressiva: contagem });
     };
+    /*O uso do setInterval foi necessário pois uma função recursiva não conseguia incluir todas as demais mudanças necessarias que ocorrem junto com isso,
+    como as alterações no DOM e no gerenciamento do jogo, e ela ainda permite um maior controle e previsibilidade nessa parte do código*/
 
     // Inicia o intervalo em que os ratos aparecem.
     const iniciarIntervaloRato = () => {
@@ -120,6 +134,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }, getEstado().velocidaderato);
         atualizarEstado({ intervalorato: intervalo });
     };
+    /*novamente o uso de setInterval foi uma escolha melhor, pois não gera problemas ou acumulos no funcionamento
+    */
 
     // Função para iniciar o jogo.
     const iniciarJogo = () => {
